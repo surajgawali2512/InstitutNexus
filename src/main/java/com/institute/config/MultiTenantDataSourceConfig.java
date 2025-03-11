@@ -22,7 +22,7 @@ public class MultiTenantDataSourceConfig {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/" + dbName);
         dataSource.setUsername("root");
-        dataSource.setPassword("password");
+        dataSource.setPassword("Nikhil@0114");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         return dataSource;
     }

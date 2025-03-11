@@ -4,13 +4,14 @@ package com.institute.config;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.*;
+import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import com.institute.repository.InstitutionRepository;
 import com.institute.model.Institution;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
-
+@Component
 public class TenantFilter extends OncePerRequestFilter {
 
     @Autowired

@@ -11,7 +11,7 @@ public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
 
-    @PostMapping("/")
+    @PostMapping("/add")
     public Student addStudent(@RequestBody Student student) {
         return studentRepository.save(student);
     }
