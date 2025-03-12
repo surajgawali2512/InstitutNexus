@@ -21,7 +21,6 @@ public class Student {
     private String gender;
     private String aadhaarNo;
 
-    @Embedded
-    private Address address;
+
 }
 

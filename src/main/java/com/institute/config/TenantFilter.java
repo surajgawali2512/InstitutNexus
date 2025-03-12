@@ -17,23 +17,49 @@ public class TenantFilter extends OncePerRequestFilter {
     @Autowired
     private InstitutionRepository institutionRepository;
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-            throws ServletException, IOException {
+//    @Override
+//    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+//            throws ServletException, IOException {
+//
+//        String institutionIdentifier = request.getHeader("X-Institution-Identifier");
+//
+//        if (institutionIdentifier != null) {
+//            Institution institution = institutionRepository.findByUsername(institutionIdentifier);
+//            if (institution != null) {
+//                TenantContext.setCurrentTenant(institution.getDbName());
+//            }
+//        }
+//
+//        try {
+//            filterChain.doFilter(request, response);
+//        } finally {
+//            TenantContext.clear();
+//        }
+//    }
+@Override
+protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+        throws ServletException, IOException {
 
-        String institutionIdentifier = request.getHeader("X-Institution-Identifier");
+    String institutionIdentifier = request.getHeader("X-Institution-Identifier");
+    System.out.println("Received X-Institution-Identifier: " + institutionIdentifier);
 
-        if (institutionIdentifier != null) {
-            Institution institution = institutionRepository.findByUsername(institutionIdentifier);
-            if (institution != null) {
-                TenantContext.setCurrentTenant(institution.getDbName());
-            }
+    if (institutionIdentifier != null) {
+        Institution institution = institutionRepository.findByUsername(institutionIdentifier);
+        if (institution != null) {
+            System.out.println("Setting tenant: " + institution.getDbName());
+            TenantContext.setCurrentTenant(institution.getDbName());
+        } else {
+            System.out.println("Institution not found for: " + institutionIdentifier);
         }
-
-        try {
-            filterChain.doFilter(request, response);
-        } finally {
-            TenantContext.clear();
-        }
+    } else {
+        System.out.println("No X-Institution-Identifier header found in request.");
     }
+
+    try {
+        filterChain.doFilter(request, response);
+    } finally {
+        TenantContext.clear();
+    }
+}
+
 }
