@@ -17,13 +17,17 @@ public class StudentService {
 //    public Student addStudent(Student student) {
 //        return studentRepository.save(student);
 //    }
-    public Student addStudent(Student student) {
-        String tenant = TenantContext.getCurrentTenant();
-        if (tenant == null) {
-            throw new RuntimeException("No tenant selected! Please provide X-Tenant-ID.");
-        }
-        return studentRepository.save(student);
+public Student addStudent(Student student) {
+    String tenant = TenantContext.getCurrentTenant();
+    System.out.println("🚀 Current tenant in StudentService: " + tenant);
+
+    if (tenant == null) {
+        throw new RuntimeException("❌ No tenant selected! Please provide X-Institution-Identifier.");
     }
+
+    return studentRepository.save(student);
+}
+
 
     public List<Student> getAllStudents() {
         return studentRepository.findAll();
