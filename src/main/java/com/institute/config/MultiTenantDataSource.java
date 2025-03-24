@@ -29,10 +29,12 @@
 //
 package com.institute.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 import javax.sql.DataSource;
-
+@ConditionalOnMissingBean(DataSource.class)
 public class MultiTenantDataSource extends AbstractRoutingDataSource {
 
     private final MultiTenantDataSourceConfig dataSourceConfig;

@@ -6,10 +6,13 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+
+@ConditionalOnMissingBean(DataSource.class)
 public class MultiTenantDataSourceConfig {
 
     private final Map<String, DataSource> tenantDataSources = new HashMap<>();
@@ -22,7 +25,7 @@ public class MultiTenantDataSourceConfig {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/" + dbName);
         dataSource.setUsername("root");
-        dataSource.setPassword("Nikhil@0114");
+        dataSource.setPassword("Suraj@2002");
         dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
         return dataSource;
     }
