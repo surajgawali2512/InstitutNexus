@@ -92,7 +92,7 @@ public class TenantFilter extends OncePerRequestFilter {
         System.out.println("🔹 Received X-Institution-Identifier: " + institutionIdentifier);
 
         if (institutionIdentifier != null) {
-            Institution institution = institutionRepository.findByUsername(institutionIdentifier);
+            Institution institution = institutionRepository.findByDbName(institutionIdentifier);
             if (institution != null) {
                 System.out.println("✅ Setting Tenant: " + institution.getDbName());
                 TenantContext.setCurrentTenant(institution.getDbName());
