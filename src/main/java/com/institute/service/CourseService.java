@@ -28,6 +28,7 @@ public class CourseService {
         DataSource dataSource=multiTenantDataSourceConfig.resolveDataSource(tenant);
         JdbcTemplate jdbcTemplate=new JdbcTemplate(dataSource);
         String insertQuery= "INSERT INTO COURSE(name,code,duration)"+"Values(?,?,?)";
-        Template.update(insertQuery,course.getName(),course.getCode(),course.getDuration());
+        jdbcTemplate.update(insertQuery,course.getName(),course.getCode(),course.getDuration());
+        return  course;
     }
 }
