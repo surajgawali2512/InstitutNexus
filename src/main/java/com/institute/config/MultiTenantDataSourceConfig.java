@@ -6,6 +6,7 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,14 @@ import org.springframework.context.annotation.Configuration;
 
 @ConditionalOnMissingBean(DataSource.class)
 public class MultiTenantDataSourceConfig {
-
+@Value("${spring.datasource.username}")
+private String username;
+    @Value("${spring.datasource.password}")
+    private String password;
+    @Value("${spring.datasource.configurl}")
+    private String configurl;
+    @Value("${spring.datasource.driver-class-name}")
+    private String driverclassname;
     private final Map<String, DataSource> tenantDataSources = new HashMap<>();
 
     public DataSource resolveDataSource(String dbName) {
@@ -23,10 +31,11 @@ public class MultiTenantDataSourceConfig {
 
     private DataSource createDataSource(String dbName) {
         HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/" + dbName);
-        dataSource.setUsername("root");
-        dataSource.setPassword("Nikhil@0114");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
+//        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/" + dbName);
+        dataSource.setJdbcUrl(configurl+dbName);
+        dataSource.setUsername(password);
+        dataSource.setPassword(username);
+        dataSource.setDriverClassName(driverclassname);
         return dataSource;
     }
 }
