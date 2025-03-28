@@ -46,21 +46,18 @@ public class InstitutionService {
         JdbcTemplate newJdbcTemplate = new JdbcTemplate(dataSource);
 
         // Create Student Table
-        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Student (" +
-                "id BIGINT AUTO_INCREMENT PRIMARY KEY, " +
-                "name VARCHAR(255), " +
-                "roll_no VARCHAR(50), " +
-                "email VARCHAR(255), " +
-                "mobile_no VARCHAR(20), " +
-                "gender VARCHAR(10), " +
-                "aadhaar_no VARCHAR(20))");
+        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Courses (" +
+                "courseId BIGINT AUTO_INCREMENT PRIMARY KEY, " +
+                "courseName VARCHAR(255), " +
+                "code BIGINT, " +
+                "duration BIGINT)");
 
         // Create Address Table (Embedded in Student)
-        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Teacher (" +
-                "id BIGINT AUTO_INCREMENT PRIMARY KEY, " +
-                "name VARCHAR(255), " +
-                "subject VARCHAR(255), " +
-                "email VARCHAR(255), " +
-                "phone VARCHAR(20))");
+//        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Teacher (" +
+//                "id BIGINT AUTO_INCREMENT PRIMARY KEY, " +
+//                "name VARCHAR(255), " +
+//                "subject VARCHAR(255), " +
+//                "email VARCHAR(255), " +
+//                "phone VARCHAR(20))");
     }
 }

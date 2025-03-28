@@ -50,14 +50,15 @@ public class StudentService {
 
         String selectQuery = "SELECT * FROM student";
         return jdbcTemplate.query(selectQuery, (rs, rowNum) -> {
+            System.out.println("✅ Student found: " + rs.getString("name")); // Debugging log
             Student student = new Student();
-
+            student.setId(rs.getLong("id"));  // ✅ Fetching ID from the database
             student.setName(rs.getString("name"));
-            student.setRollNo(rs.getString("rollNo"));
+            student.setRollNo(rs.getString("roll_no"));
             student.setEmail(rs.getString("email"));
-            student.setMobileNo(rs.getString("mobileNo"));
+            student.setMobileNo(rs.getString("mobile_no"));
             student.setGender(rs.getString("gender"));
-            student.setAadhaarNo(rs.getString("aadhaarNo"));
+            student.setAadhaarNo(rs.getString("aadhaar_no"));
             return student;
         });
     }
