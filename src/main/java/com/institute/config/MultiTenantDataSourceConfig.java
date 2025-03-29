@@ -33,8 +33,8 @@ private String username;
         HikariDataSource dataSource = new HikariDataSource();
 //        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/" + dbName);
         dataSource.setJdbcUrl(configurl+dbName);
-        dataSource.setUsername(password);
-        dataSource.setPassword(username);
+        dataSource.setUsername(username);
+        dataSource.setPassword(password);
         dataSource.setDriverClassName(driverclassname);
         return dataSource;
     }
