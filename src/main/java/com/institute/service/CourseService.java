@@ -26,9 +26,10 @@ public class CourseService {
            throw new RuntimeException("No Tenant Selected");
         }
         DataSource dataSource=multiTenantDataSourceConfig.resolveDataSource(tenant);
-        JdbcTemplate jdbcTemplate=new JdbcTemplate(dataSource);
-        String insertQuery= "INSERT INTO COURSE(name,code,duration)"+"Values(?,?,?)";
-        jdbcTemplate.update(insertQuery,course.getName(),course.getCode(),course.getDuration());
-        return  course;
+        Course savedCourse=courseRepository.save(course);
+//        JdbcTemplate jdbcTemplate=new JdbcTemplate(dataSource);
+//        String insertQuery= "INSERT INTO COURSE(name,code,duration)"+"Values(?,?,?)";
+//        jdbcTemplate.update(insertQuery,course.getName(),course.getCode(),course.getDuration());
+        return  savedCourse;
     }
 }
