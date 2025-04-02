@@ -17,8 +17,17 @@ public class Course {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private  Long id;
     private String Name;
-    private  Long Code;
+    private  String Code;
     private Long Duration;
+    private String description;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public Long getId() {
         return id;
@@ -36,11 +45,11 @@ public class Course {
         Name = name;
     }
 
-    public Long getCode() {
+    public String getCode() {
         return Code;
     }
 
-    public void setCode(Long code) {
+    public void setCode(String code) {
         Code = code;
     }
 

@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-
 @ConditionalOnMissingBean(DataSource.class)
 public class MultiTenantDataSourceConfig {
 @Value("${spring.datasource.username}")
