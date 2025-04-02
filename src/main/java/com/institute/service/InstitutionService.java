@@ -45,22 +45,34 @@ public class InstitutionService {
     private void initializeTables(DataSource dataSource) {
         JdbcTemplate newJdbcTemplate = new JdbcTemplate(dataSource);
 
-        // Create Student Table
-        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Student (" +
+        // Create Course Table
+        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Course (" +
                 "id BIGINT AUTO_INCREMENT PRIMARY KEY, " +
-                "name VARCHAR(255), " +
-                "roll_no VARCHAR(50), " +
-                "email VARCHAR(255), " +
-                "mobile_no VARCHAR(20), " +
-                "gender VARCHAR(10), " +
-                "aadhaar_no VARCHAR(20))");
+                "Name VARCHAR(255), " +
+                "code VARCHAR(255), " +
+                "duration BIGINT, "+
+                "description VARCHAR(255))");
 
-        // Create Address Table (Embedded in Student)
-        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Teacher (" +
-                "id BIGINT AUTO_INCREMENT PRIMARY KEY, " +
-                "name VARCHAR(255), " +
-                "subject VARCHAR(255), " +
-                "email VARCHAR(255), " +
-                "phone VARCHAR(20))");
+        // Create Department Table (Embedded in Course)
+        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Department (" +
+                "deptId BIGINT AUTO_INCREMENT PRIMARY KEY, " +
+                "departmentName VARCHAR(255), " +
+                "hodName VARCHAR(255), " +
+                "id BIGINT, " +
+                "FOREIGN KEY (id) REFERENCES Course(id) ON DELETE CASCADE)");
+        // Create Class Table
+        newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Classes (" +
+                "classId BIGINT AUTO_INCREMENT PRIMARY KEY, " +
+                "className VARCHAR(255), " +
+                "id BIGINT, " +
+                "departmentId BIGINT, " +
+                "startDate DATE, " +
+                "endDate DATE, " +
+                "semester VARCHAR(50), " +
+                "totalStudents INT, " +
+                "FOREIGN KEY (id) REFERENCES Course(id) ON DELETE CASCADE, " +
+                "FOREIGN KEY (department_id) REFERENCES Department(deptId) ON DELETE CASCADE)");
+
+
     }
 }

@@ -75,7 +75,11 @@ public class Student {
         public void setAadhaarNo(String aadhaarNo) {
             this.aadhaarNo = aadhaarNo;
         }
+
+    public void setId(long id) {
+            this.id=id;
     }
+}
 
 
 
