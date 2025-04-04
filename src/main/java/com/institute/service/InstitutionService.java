@@ -64,15 +64,11 @@ public class InstitutionService {
         newJdbcTemplate.execute("CREATE TABLE IF NOT EXISTS Classes (" +
                 "classId BIGINT AUTO_INCREMENT PRIMARY KEY, " +
                 "className VARCHAR(255), " +
-                "id BIGINT, " +
                 "departmentId BIGINT, " +
                 "startDate DATE, " +
                 "endDate DATE, " +
                 "semester VARCHAR(50), " +
                 "totalStudents INT, " +
-                "FOREIGN KEY (id) REFERENCES Course(id) ON DELETE CASCADE, " +
-                "FOREIGN KEY (department_id) REFERENCES Department(deptId) ON DELETE CASCADE)");
-
-
+                "FOREIGN KEY (departmentId) REFERENCES Department(deptId) ON DELETE CASCADE)");
     }
 }

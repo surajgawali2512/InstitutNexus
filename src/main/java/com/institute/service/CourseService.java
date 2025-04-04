@@ -21,7 +21,7 @@ public class CourseService {
 
     public Course addCourse(Course course){
         String tenant= TenantContext.getCurrentTenant();
-        System.out.println("Current Tenant in CourseService"+tenant);
+        System.out.println("Current Tenant in CourseService: "+tenant);
         if (tenant==null){
            throw new RuntimeException("No Tenant Selected");
         }

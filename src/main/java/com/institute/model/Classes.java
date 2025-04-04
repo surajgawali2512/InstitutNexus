@@ -17,10 +17,10 @@ public class Classes {
     private Long classId;
 
     private String className;
-
-    @ManyToOne
-    @JoinColumn(name = "courseId", referencedColumnName = "id")
-    private Course course;
+//Temporory
+//    @ManyToOne
+//    @JoinColumn(name = "courseId", referencedColumnName = "id")
+//    private Course course;
 
     @ManyToOne
     @JoinColumn(name = "departmentId", referencedColumnName = "deptId")
@@ -46,14 +46,14 @@ public class Classes {
     public void setClassName(String className) {
         this.className = className;
     }
-
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
+//
+//    public Course getCourse() {
+//        return course;
+//    }
+//
+//    public void setCourse(Course course) {
+//        this.course = course;
+//    }
 
     public Department getDepartment() {
         return department;
