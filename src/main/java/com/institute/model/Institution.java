@@ -3,6 +3,8 @@ package com.institute.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -19,6 +21,9 @@ public class Institution {
     private String phone;
     private String username; // For login
     private String password; // Store securely (hashed)
+    private Date startDate;
+    private Date endDate;
+    private String status;
     private String dbName; // Unique database for this institution
     public String getName() {
         return name;
