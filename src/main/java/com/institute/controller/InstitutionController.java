@@ -20,7 +20,8 @@ public class InstitutionController {
 
     // Login for institution
     @PostMapping("/login")
-    public boolean login(@RequestParam String email, @RequestParam String password) {
+    public Institution
+    login(@RequestParam String email, @RequestParam String password) {
         return institutionService.login(email, password);
     }
 
