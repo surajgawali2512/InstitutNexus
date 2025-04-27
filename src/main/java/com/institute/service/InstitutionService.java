@@ -94,8 +94,6 @@ public class InstitutionService {
         return safeInstitution;
     }
 
-
-
 //    @Transactional
 //    public Institution login(String email, String rawPassword) {
 //        Optional<Institution> optionalInstitution = institutionRepository.findByEmail(email);
@@ -117,7 +115,6 @@ public class InstitutionService {
 //        return institution;
 //    }
 
-
     @Transactional
     public Institution registerInstitution(Institution institution) {
         // Check if institution already exists
@@ -133,7 +130,7 @@ public class InstitutionService {
         institution.setPassword(encodedPassword);
 
         // Save institution in the master database
-        institution.setDbName("school_" + institution.getName().toLowerCase().replace(" ", "_"));
+        institution.setDbName(institution.getName().toLowerCase().replace(" ", "_")+"_Institute");
         institution = institutionRepository.save(institution);
 
         // Create a new database for the institution

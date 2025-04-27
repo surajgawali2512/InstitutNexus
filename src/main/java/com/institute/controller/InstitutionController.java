@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/institutions")
+@CrossOrigin(origins = "http://localhost:3000") // 👈 Allow React frontend
 public class InstitutionController {
 
     @Autowired
