@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/institutions")
+@CrossOrigin(origins = "http://localhost:3000") // 👈 Allow React frontend
 public class InstitutionController {
 
     @Autowired
@@ -20,7 +21,8 @@ public class InstitutionController {
 
     // Login for institution
     @PostMapping("/login")
-    public boolean login(@RequestParam String email, @RequestParam String password) {
+    public Institution
+    login(@RequestParam String email, @RequestParam String password) {
         return institutionService.login(email, password);
     }
 

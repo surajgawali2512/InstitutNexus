@@ -8,6 +8,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/course")
+@CrossOrigin(
+        origins = "http://localhost:3000",
+        allowedHeaders = {"X-Institution-Identifier", "Content-Type"},
+        exposedHeaders = {"X-Institution-Identifier"}
+)
 public class CourseController {
     @Autowired
     private CourseService courseService;

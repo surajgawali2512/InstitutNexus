@@ -62,7 +62,7 @@ public class InstitutionService {
     }
 
     @Transactional
-    public boolean login(String email, String rawPassword) {
+    public Institution login(String email, String rawPassword) {
         Optional<Institution> optionalInstitution = institutionRepository.findByEmail(email);
 
         if (optionalInstitution.isEmpty()) {
@@ -72,17 +72,48 @@ public class InstitutionService {
         Institution institution = optionalInstitution.get();
 
         if (!passwordEncoder.matches(rawPassword, institution.getPassword())) {
-            System.out.println("Raw Password is " + rawPassword);
-            System.out.println("Hashed Password is " + passwordEncoder.encode(rawPassword));
             throw new RuntimeException("Invalid password");
         }
 
         // Set tenant in context (background)
         TenantContext.setCurrentTenant(institution.getUsername());
 
-        return true;
+        // Return a sanitized copy of the institution
+        Institution safeInstitution = new Institution();
+        safeInstitution.setId(institution.getId());
+        safeInstitution.setName(institution.getName());
+        safeInstitution.setAddress(institution.getAddress());
+        safeInstitution.setEmail(institution.getEmail());
+        safeInstitution.setPhone(institution.getPhone());
+        safeInstitution.setUsername(institution.getUsername());
+        safeInstitution.setStartDate(institution.getStartDate());
+        safeInstitution.setEndDate(institution.getEndDate());
+        safeInstitution.setStatus(institution.getStatus());
+        // Do NOT set password or dbName
+
+        return safeInstitution;
     }
 
+//    @Transactional
+//    public Institution login(String email, String rawPassword) {
+//        Optional<Institution> optionalInstitution = institutionRepository.findByEmail(email);
+//
+//        if (optionalInstitution.isEmpty()) {
+//            throw new RuntimeException("Institution not found with email: " + email);
+//        }
+//
+//        Institution institution = optionalInstitution.get();
+//
+//        if (!passwordEncoder.matches(rawPassword, institution.getPassword())) {
+//            throw new RuntimeException("Invalid password");
+//        }
+//
+//
+//        // Set tenant in context (background)
+//        TenantContext.setCurrentTenant(institution.getUsername());
+//
+//        return institution;
+//    }
 
     @Transactional
     public Institution registerInstitution(Institution institution) {
@@ -99,7 +130,7 @@ public class InstitutionService {
         institution.setPassword(encodedPassword);
 
         // Save institution in the master database
-        institution.setDbName("school_" + institution.getName().toLowerCase().replace(" ", "_"));
+        institution.setDbName(institution.getName().toLowerCase().replace(" ", "_")+"_Institute");
         institution = institutionRepository.save(institution);
 
         // Create a new database for the institution
