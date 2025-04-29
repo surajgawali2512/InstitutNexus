@@ -51,6 +51,49 @@ public class InstitutionService {
     }
 
     @Transactional
+    public Institution updateInstitute(String email, Institution updatedInstitution) {
+        Optional<Institution> optionalInstitution = institutionRepository.findByEmail(email);
+
+        if (optionalInstitution.isEmpty()) {
+            throw new RuntimeException("Institution not found with email: " + email);
+        }
+
+        Institution institution = optionalInstitution.get();
+
+        // Update fields only if they're not null
+        if (updatedInstitution.getName() != null) {
+            institution.setName(updatedInstitution.getName());
+        }
+        if (updatedInstitution.getAddress() != null) {
+            institution.setAddress(updatedInstitution.getAddress());
+        }
+        if (updatedInstitution.getPhone() != null) {
+            institution.setPhone(updatedInstitution.getPhone());
+        }
+        if (updatedInstitution.getUsername() != null) {
+            institution.setUsername(updatedInstitution.getUsername());
+        }
+        if (updatedInstitution.getPassword() != null) {
+            institution.setPassword(updatedInstitution.getPassword()); // Encrypt this if needed
+        }
+        if (updatedInstitution.getStartDate() != null) {
+            institution.setStartDate(updatedInstitution.getStartDate());
+        }
+        if (updatedInstitution.getEndDate() != null) {
+            institution.setEndDate(updatedInstitution.getEndDate());
+        }
+        if (updatedInstitution.getStatus() != null) {
+            institution.setStatus(updatedInstitution.getStatus());
+        }
+        if (updatedInstitution.getDbName() != null) {
+            institution.setDbName(updatedInstitution.getDbName());
+        }
+
+        return institutionRepository.save(institution);
+    }
+
+
+    @Transactional
     public Institution updatePassword(Long id, String password) {
         Optional<Institution> optionalInstitution = institutionRepository.findById(id);
         if (optionalInstitution.isEmpty()) {

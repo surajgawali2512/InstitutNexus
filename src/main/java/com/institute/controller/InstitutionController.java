@@ -25,6 +25,12 @@ public class InstitutionController {
     login(@RequestParam String email, @RequestParam String password) {
         return institutionService.login(email, password);
     }
+    // Login for institution
+    @PutMapping("/update")
+    public Institution
+    update(@RequestParam String email, @RequestBody Institution institution) {
+        return institutionService.updateInstitute(email, institution);
+    }
 
     // Update email for institution
     @PutMapping("/{id}/update-email")
