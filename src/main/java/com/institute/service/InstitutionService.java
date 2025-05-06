@@ -176,7 +176,7 @@ public class InstitutionService {
         institution.setPassword(encodedPassword);
 
         // Save institution in the master database
-        institution.setDbName("school_" + institution.getName().toLowerCase().replace(" ", "_"));
+        institution.setDbName("Institute_"+institution.getName().toLowerCase().replace(" ", "_"));
         institution = institutionRepository.save(institution);
 
         // Create a new database for the institution

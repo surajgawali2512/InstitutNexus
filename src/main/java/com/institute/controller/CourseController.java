@@ -8,6 +8,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/course")
+@CrossOrigin(
+        origins = "http://localhost:3000",
+        allowedHeaders = {"X-Institution-Identifier", "Content-Type"},
+        exposedHeaders = {"X-Institution-Identifier"}
+)
 public class CourseController {
     @Autowired
     private CourseService courseService;
@@ -17,9 +22,9 @@ public class CourseController {
         return courseService.addCourse(course);
     }
 
-    @PostMapping("/getById/{id}")
-    public Course getCourseById(@PathVariable Long id) {
-        return courseService.getCourseById(id);
+    @PostMapping("/getByName/{name}")
+    public List<Course> getCourseByName(@PathVariable String name) {
+        return courseService.getCourseByName(name);
     }
 
     @PostMapping("/delete/{id}")
