@@ -22,9 +22,9 @@ public class CourseController {
         return courseService.addCourse(course);
     }
 
-    @PostMapping("/getById/{id}")
-    public Course getCourseById(@PathVariable Long id) {
-        return courseService.getCourseById(id);
+    @PostMapping("/getByName/{name}")
+    public List<Course> getCourseByName(@PathVariable String name) {
+        return courseService.getCourseByName(name);
     }
 
     @PostMapping("/delete/{id}")

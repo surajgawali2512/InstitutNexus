@@ -39,8 +39,7 @@ public class CourseService {
 
         return courses;
     }
-
-    public Course getCourseById(Long id) {
+    public List<Course> getCourseByName(String name) {
         String tenant = TenantContext.getCurrentTenant();
         if (tenant == null) {
             throw new RuntimeException("No Tenant Selected");
@@ -49,13 +48,31 @@ public class CourseService {
         DataSource dataSource = multiTenantDataSourceConfig.resolveDataSource(tenant);
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
 
-        String selectQuery = "SELECT * FROM COURSE WHERE id = ?";
-        return jdbcTemplate.queryForObject(
+        String selectQuery = "SELECT * FROM COURSE WHERE Name LIKE ?";
+        return jdbcTemplate.query(
                 selectQuery,
                 new BeanPropertyRowMapper<>(Course.class),
-                id
+                "%" + name + "%"
         );
     }
+
+
+    //    public Course getCourseByName(String name) {
+//        String tenant = TenantContext.getCurrentTenant();
+//        if (tenant == null) {
+//            throw new RuntimeException("No Tenant Selected");
+//        }
+//
+//        DataSource dataSource = multiTenantDataSourceConfig.resolveDataSource(tenant);
+//        JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
+//
+//        String selectQuery = "SELECT * FROM COURSE WHERE Name contains ?";
+//        return jdbcTemplate.queryForObject(
+//                selectQuery,
+//                new BeanPropertyRowMapper<>(Course.class),
+//                name
+//        );
+//    }
     public void deleteCourse(Long id) {
         String tenant = TenantContext.getCurrentTenant();
         if (tenant == null) {

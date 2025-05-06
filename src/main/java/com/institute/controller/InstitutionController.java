@@ -5,9 +5,15 @@ import com.institute.service.InstitutionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+//@CrossOrigin(
+//        origins = "http://localhost:3000",
+//        allowedHeaders = {"X-Institution-Identifier", "Content-Type"},
+//        exposedHeaders = {"X-Institution-Identifier"}
+//)
+@CrossOrigin(origins = "http://localhost:3000") // 👈 Allow React frontend
 @RestController
 @RequestMapping("/institutions")
-@CrossOrigin(origins = "http://localhost:3000") // 👈 Allow React frontend
 public class InstitutionController {
 
     @Autowired
@@ -27,8 +33,7 @@ public class InstitutionController {
     }
     // Login for institution
     @PutMapping("/update")
-    public Institution
-    update(@RequestParam String email, @RequestBody Institution institution) {
+    public Institution update(@RequestParam String email, @RequestBody Institution institution) {
         return institutionService.updateInstitute(email, institution);
     }
 
