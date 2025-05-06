@@ -137,26 +137,6 @@ public class InstitutionService {
         return safeInstitution;
     }
 
-//    @Transactional
-//    public Institution login(String email, String rawPassword) {
-//        Optional<Institution> optionalInstitution = institutionRepository.findByEmail(email);
-//
-//        if (optionalInstitution.isEmpty()) {
-//            throw new RuntimeException("Institution not found with email: " + email);
-//        }
-//
-//        Institution institution = optionalInstitution.get();
-//
-//        if (!passwordEncoder.matches(rawPassword, institution.getPassword())) {
-//            throw new RuntimeException("Invalid password");
-//        }
-//
-//
-//        // Set tenant in context (background)
-//        TenantContext.setCurrentTenant(institution.getUsername());
-//
-//        return institution;
-//    }
 
     @Transactional
     public Institution registerInstitution(Institution institution) {
@@ -165,6 +145,10 @@ public class InstitutionService {
 
         if (existingInstitution.isPresent()) {
             throw new RuntimeException("Institution already registered with name: " + institution.getName());
+        }
+        Optional<Institution> existingEmail = institutionRepository.findByEmail(institution.getEmail());
+        if (existingEmail.isPresent()) {
+            throw new RuntimeException("Institution already registered with Email: " + institution.getEmail());
         }
 
 
