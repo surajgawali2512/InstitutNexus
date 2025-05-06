@@ -15,7 +15,7 @@ public class Faculty {
     private String name;
     private String email;
     private String contactNumber;
-private  String JobRole;
+    private  String JobRole;
     @Embedded
     private Address address;
 

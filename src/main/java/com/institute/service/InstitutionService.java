@@ -109,9 +109,12 @@ public class InstitutionService {
         Optional<Institution> optionalInstitution = institutionRepository.findByEmail(email);
 
         if (optionalInstitution.isEmpty()) {
-            throw new RuntimeException("Institution not found with email: " + email);
+            optionalInstitution = institutionRepository.findByUsername(email);
         }
+        if (optionalInstitution.isEmpty()) {
 
+            throw new RuntimeException("Institution not found with email or username: " + email);
+        }
         Institution institution = optionalInstitution.get();
 
         if (!passwordEncoder.matches(rawPassword, institution.getPassword())) {

@@ -8,7 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface InstitutionRepository extends JpaRepository<Institution, Long> {
-    Institution findByUsername(String username);
+    Optional<Institution> findByUsername(String username);
     Institution findByDbName(String dbName);
     Optional<Institution> findByNameIgnoreCase(String name);
     Optional<Institution> findByEmail(String email);

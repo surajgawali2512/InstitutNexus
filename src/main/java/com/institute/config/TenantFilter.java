@@ -78,6 +78,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class TenantFilter extends OncePerRequestFilter {
@@ -93,10 +94,10 @@ public class TenantFilter extends OncePerRequestFilter {
         System.out.println("🔹 Received X-Institution-Identifier: " + institutionIdentifier);
 
         if (institutionIdentifier != null) {
-            Institution institution = institutionRepository.findByUsername(institutionIdentifier);
-            if (institution != null) {
-                System.out.println("✅ Setting Tenant: " + institution.getDbName());
-                TenantContext.setCurrentTenant(institution.getDbName());
+            Optional<Institution> institution = institutionRepository.findByUsername(institutionIdentifier);
+            if (institution.isPresent()) {
+                System.out.println("✅ Setting Tenant: " + institution.get().getDbName());
+                TenantContext.setCurrentTenant(institution.get().getDbName());
             } else {
                 System.out.println("❌ Institution not found for: " + institutionIdentifier);
             }
