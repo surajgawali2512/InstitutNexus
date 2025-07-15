@@ -95,6 +95,11 @@ public List<Department> getAllDepartments() {
         String selectQuery = "SELECT * FROM Department WHERE departmentName LIKE ?";
         return jdbcTemplate.query(selectQuery, new BeanPropertyRowMapper<>(Department.class), "%" + name + "%");
     }
+    public List<Department> getDepartmentsByCourseId(Long id) {
+        JdbcTemplate jdbcTemplate = getJdbcTemplateForCurrentTenant();
+        String selectQuery = "SELECT * FROM Department WHERE id = ?";
+        return jdbcTemplate.query(selectQuery, new BeanPropertyRowMapper<>(Department.class), id);
+    }
 
 //    public Department updateDepartment(Long id, Department updatedDepartment) {
 //        JdbcTemplate jdbcTemplate = getJdbcTemplateForCurrentTenant();

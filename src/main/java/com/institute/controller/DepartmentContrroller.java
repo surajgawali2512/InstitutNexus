@@ -53,6 +53,10 @@ public class DepartmentContrroller {
     public List<Department> getDepartmentsByName(@PathVariable String name) {
         return departmentService.getDepartmentsByName(name);
     }
+    @GetMapping("/getbyid/{id}")
+    public List<Department> getDepartmentsByName(@PathVariable Long id) {
+        return departmentService.getDepartmentsByCourseId(id);
+    }
     @PostMapping("/delete/{id}")
     public void deleteDepartment(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
