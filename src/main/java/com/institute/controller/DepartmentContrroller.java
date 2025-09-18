@@ -41,7 +41,7 @@ public class DepartmentContrroller {
     @Autowired
     private DepartmentService departmentService;
 
-    @PostMapping("/add")
+    @PostMapping("/add/{courseId}")
     public Department addDept(@RequestBody Department department) {
         return departmentService.addDepartment(department);
     }
@@ -53,10 +53,11 @@ public class DepartmentContrroller {
     public List<Department> getDepartmentsByName(@PathVariable String name) {
         return departmentService.getDepartmentsByName(name);
     }
-    @GetMapping("/getbyid/{id}")
-    public List<Department> getDepartmentsByName(@PathVariable Long id) {
-        return departmentService.getDepartmentsByCourseId(id);
+    @GetMapping("/getByCourse/{id}")
+    public List<Department> getDepartmentsByCourseId(@PathVariable Long id) {
+        return departmentService.getDepartmentsByCourseId(id); // fetch from DB using courseId
     }
+
     @PostMapping("/delete/{id}")
     public void deleteDepartment(@PathVariable Long id) {
         departmentService.deleteDepartment(id);
