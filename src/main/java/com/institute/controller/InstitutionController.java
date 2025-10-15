@@ -42,4 +42,9 @@ public class InstitutionController {
     public Institution updateEmail(@PathVariable Long id, @RequestParam String email) {
         return institutionService.updateEmail(id, email);
     }
+    // ✅ Update institution by ID (new method)
+    @PutMapping("/{id}/update-all")
+    public Institution updateInstitutionById(@PathVariable Long id, @RequestBody Institution institution) {
+        return institutionService.updateInstitutionById(id, institution);
+    }
 }

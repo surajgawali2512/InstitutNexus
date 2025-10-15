@@ -26,6 +26,51 @@ public class InstitutionService {
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+    @Transactional
+    public Institution updateInstitutionById(Long id, Institution updatedInstitution) {
+        Optional<Institution> optionalInstitution = institutionRepository.findById(id);
+
+        if (optionalInstitution.isEmpty()) {
+            throw new RuntimeException("Institution not found with ID: " + id);
+        }
+
+        Institution institution = optionalInstitution.get();
+
+        // Update all fields if not null
+        if (updatedInstitution.getName() != null) {
+            institution.setName(updatedInstitution.getName());
+        }
+        if (updatedInstitution.getAddress() != null) {
+            institution.setAddress(updatedInstitution.getAddress());
+        }
+        if (updatedInstitution.getEmail() != null) {
+            institution.setEmail(updatedInstitution.getEmail());
+        }
+        if (updatedInstitution.getPhone() != null) {
+            institution.setPhone(updatedInstitution.getPhone());
+        }
+        if (updatedInstitution.getUsername() != null) {
+            institution.setUsername(updatedInstitution.getUsername());
+        }
+        if (updatedInstitution.getPassword() != null) {
+            // Encrypt the password before saving
+            institution.setPassword(passwordEncoder.encode(updatedInstitution.getPassword()));
+        }
+        if (updatedInstitution.getStartDate() != null) {
+            institution.setStartDate(updatedInstitution.getStartDate());
+        }
+        if (updatedInstitution.getEndDate() != null) {
+            institution.setEndDate(updatedInstitution.getEndDate());
+        }
+        if (updatedInstitution.getStatus() != null) {
+            institution.setStatus(updatedInstitution.getStatus());
+        }
+        if (updatedInstitution.getDbName() != null) {
+            institution.setDbName(updatedInstitution.getDbName());
+        }
+
+        return institutionRepository.save(institution);
+    }
 
     @Transactional
     public Institution updateEmail(Long id, String email) {
